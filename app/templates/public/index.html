@@ -1,20 +1,55 @@
 <html>
 <head>
   <meta charset="utf-8" lang="es">
-  <title>Descarga Video usando Python | pytube</title>
+  <title>Descarga Video de Yotube usando el Modulo (pytube) con Python | pytube</title>
   <link type="text/css" rel="shortcut icon" href="{{ url_for('static', filename ='imgs/logo.png') }}"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 </head>
-<body>
+<body id="body">
 
-  <div class="centro">
-    <img src="https://www.google.es/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google logo">
-    
-    <form action="{{ url_for('descargarVideo') }}" method="POST" autocomplete="off">
-      <input type="url" name="urlVideo" placeholder="URL del video" autofocus="autofocus"><br>
-      <button class="button">Descargar Video</button>
-    </form>
+  <section class="content-video">
+    <h1>Descargar Video de Youtube con <br> <span> pytube </span> + FLASK y PYTHON    </h1>
+  </section>
+
+
+  <form class="content-video" action="{{ url_for('descargarVideo') }}" method="POST" autocomplete="off">
+  <div class="search-local">
+    <div class="icon">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-youtube" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+        <rect x="3" y="5" width="18" height="14" rx="4" />
+        <path d="M10 9l5 3l-5 3z" />
+      </svg>
+    </div>
+  
+    <input type="url" name="urlVideo" id="urlVideo" placeholder="URL del video" autofocus="autofocus" required>
+    <button>Buscar Video</button>
   </div>
+</form>
 
+<div id="vista-previa"></div>
+
+
+<script>
+let cargando = false;
+const input = document.querySelector('#urlVideo');
+      input.addEventListener('change', (e)=>{
+      const valorInput = e.target.value;
+      const idYoutube = valorInput.substring(32);
+      console.log({idYoutube, valorInput});
+
+      let   body = document.querySelector('#body');
+            body.classList.add("loaderBody");
+
+        setTimeout(()=> {
+          body.classList.remove('loaderBody');
+        }, 1000);
+
+      document.querySelector('#vista-previa').innerHTML = `
+        <iframe width="550" height="300" src="https://www.youtube.com/embed/${idYoutube}" frameborder="0" allowfullscreen></iframe>`
+
+});
+
+</script>
 </body>
 </html>
