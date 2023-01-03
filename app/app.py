@@ -33,7 +33,7 @@ def descargarVideo():
         
         #Descarga el video y lo guardo en "VideosYT" dentro de la carpeta de descargas
         videoYT.streams.get_highest_resolution().download(output_path=os.path.join(url_Descargas, folder))
-        #print(videoYT)
+        print(videoYT)
         return render_template('public/index.html')
     else:
         return render_template('public/index.html')
@@ -42,7 +42,7 @@ def descargarVideo():
 #Redireccionando cuando la página no existe
 @app.errorhandler(404)
 def not_found(error):
-    return 'Ruta no encontrada'
+    return render_template('public/index.html')
 
 
 if __name__ == '__main__':
